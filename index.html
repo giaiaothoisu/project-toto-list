@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Todo List</title>
+</head>
+<body>
+    <h1>TODO List</h1>
+    <input type="text" id="new-item">
+    <button id="addTodo">Add todo list</button>
+    <br>
+    <input type="text" id="searchBox" placeholder="Search...">
+    <ul id="todo-list">
+        <!-- <li>Breakfast</li>
+        <li>Lunch</li>
+        <li>Dinner</li> -->
+    </ul>
+    <script type="text/javascript">
+        var todoList = [
+            'Take a shower',
+            'Have a walk',
+            'Go to bed'
+        ]
+
+        //Khai bao bien
+        var newItem = document.getElementById('new-item');
+        var btnAddTodo = document.getElementById('addTodo');
+        var searchBox = document.getElementById('searchBox');
+
+        btnAddTodo.addEventListener('click', addItem);
+        searchBox.addEventListener('keyup', function(even){
+            var searchValue = searchBox.value;
+            var searchContent = todoList.filter(function(item){
+                return item.indexOf(searchValue) !== -1;
+            })
+            render(searchContent);
+        })
+
+
+        function addItem(){
+            var itemValue = newItem.value;
+            todoList.push(itemValue);
+            render(todoList)
+            newItem.value = '';
+        }
+
+        function render(todoList){
+            var listHTML = document.getElementById('todo-list');
+            var content = todoList.map(function(item){
+                return '<li>' + item + '</li>';
+            })
+
+            listHTML.innerHTML = content.join('');
+        }
+
+        render(todoList);
+    </script>
+</body>
+</html>
